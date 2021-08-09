@@ -1,0 +1,45 @@
+---
+title: "Toolik"
+author: "Connor Flynn"
+date: "8/9/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(here)
+library(janitor)
+library(skimr)
+
+
+```
+
+```{r}
+toolik_chlorophyll <- read_csv(here::here("data", "data-raw", "toolik_chlorophyll.csv"),
+                           na = "#N/A")
+
+toolik_chlorophyll <- toolik_chlorophyll %>% clean_names()
+                                         
+## Create a scatter plot of depth versus chlorophyll A concentration
+
+chlorophyll_plot <- ggplot(data = toolik_chlorophyll,
+                           aes(x = active_chl_a_ug_l, y = depth)) +
+  geom_point(aes(size = active_chl_a_ug_l), 
+             color = "cyan", 
+             alpha = 0.5, show.legend = FALSE) +
+  theme_dark() +
+  scale_y_reverse()
+
+
+chlorophyll_plot
+
+
+# Error
+#ggsave(here:here("figs", "chlorophyll_graph.jpg", plot = chlorophyll_plot,
+#height = 6, width = 7)
+
+
+                                         
+```
+
